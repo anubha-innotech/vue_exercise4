@@ -21,7 +21,12 @@ export default {
 }
 body{
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 
+h2{
+  margin: auto;
+  text-align: center;
+  margin: 20px;
 }
 
 </style>
