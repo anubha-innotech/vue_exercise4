@@ -62,7 +62,7 @@ export default {
         createAccount() {
             this.formValidated = true;
             this.passwordValidationError = ""
-            if (this.userEmail == "" || this.userPassword == "" || this.userRole == "" || this.termsAndConditions == "" || this.skillsList.length == 0) {
+            if (this.userEmail == "" || this.userPassword == "" || this.userRole == "" || this.termsAndConditions == "false" || this.skillsList.length == 0) {
                 alert("fill all fields")
                 this.formValidated = false;
             }
