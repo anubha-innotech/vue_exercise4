@@ -1,58 +1,73 @@
 <template>
-<div id="container">
-    <div id="form">
-        <!-- User Email  -->
-        <div class="field">
-            <label for="user-email" class="label-field" :class="{'red-font-color' : userEmailEmptyError}">EMAIL:</label>
-            <input type="text" id="user-email" name="user-email" class="input-field" v-model="userEmail" :class="{'red-border-bottom' : userEmailEmptyError}">
-            <p class="error" v-if="userEmailEmptyError"><i class="fa-solid fa-circle-exclamation"></i> Enter your email</p>
-        </div>
-        <!-- User Password  -->
-        <div class="field">
-            <label for="user-password" class="label-field" :class="{'red-font-color' : userPasswordEmptyError || userPasswordValidationError}">PASSWORD:</label>
-            <input type="password" id="user-password" name="user-password" class="input-field" v-model="userPassword" :class="{'red-border-bottom' : userPasswordEmptyError || userPasswordValidationError}">
-            <p class="error" v-if="userPasswordValidationError"><i class="fa-solid fa-circle-exclamation"></i> Password length should be 8 char, 1 special char, 1 number, 1 uppercase, and 1 lowercase</p>
-            <p class="error" v-if="userPasswordEmptyError"><i class="fa-solid fa-circle-exclamation"></i> Enter your password</p>
-        </div>
-        <!-- User Role  -->
-        <div class="field">
-            <label for="user-role" class="label-field" :class="{'red-font-color' : userRoleEmptyError}">ROLE:</label>
-            <select id="user-role" v-model="userRole">
-                <option value="" disabled>Select role</option>
-                <option value="Web Developer">Web Developer</option>
-                <option value="Software Engg">Software Engg</option>
-                <option value="Tester">Tester</option>
-            </select>
-            <p class="error" v-if="userRoleEmptyError"><i class="fa-solid fa-circle-exclamation"></i> Select your role</p>
-        </div>
-        <!-- User Skills  -->
-        <div class="field">
-            <label for="skills" class="label-field" :class="{'red-font-color' : userSkillEmptyError}">SKILLS:</label>
-            <input type="text" v-model="skillInput" @keyup.enter="addSkill" class="input-field" :class="{'red-border-bottom' : userSkillEmptyError}">
-            <div id="skill-list-div">
-                <span v-for="(skill,index) in skillsList" class="skill-box" :id="index" :key="index">
-                    {{skill}}
-                    <button class="skill-delete-button" :key="index" :id="index" @click="skillDeleteHandler(index)"><i class="fa-solid fa-xmark"></i></button>
-                </span>
+    <div id="container">
+        <div id="form">
+            <!-- User Email  -->
+            <div class="field">
+                <label for="user-email" class="label-field"
+                    :class="{ 'red-font-color': userEmailEmptyError }">EMAIL:</label>
+                <input type="text" id="user-email" name="user-email" class="input-field" v-model="userEmail"
+                    :class="{ 'red-border-bottom': userEmailEmptyError }">
+                <p class="error" v-if="userEmailEmptyError"><i class="fa-solid fa-circle-exclamation"></i> Enter your
+                    email</p>
             </div>
-            <p class="error" v-if="userSkillEmptyError"><i class="fa-solid fa-circle-exclamation"></i> Add your skill/skills</p>
-        </div>
-        <!-- Terms And Conditions checkbox  -->
-        <input type="checkbox" name="terms-and-conditions" id="terms-and-conditions" v-model="termsAndConditions">
-        <label for="terms-and-conditions" id="terms-and-conditions-label">ACCEPT TERMS AND CONDITIONS</label>
-        <p class="error" v-if="termsAndConditionsUncheckedError"><i class="fa-solid fa-circle-exclamation"></i> Check the terms and conditions field</p>
-        <!-- "Create an Account" button  -->
-        <button @click="createAccount" id="create-account-btn">Create an Account</button>
+            <!-- User Password  -->
+            <div class="field">
+                <label for="user-password" class="label-field"
+                    :class="{ 'red-font-color': userPasswordEmptyError || userPasswordValidationError }">PASSWORD:</label>
+                <input type="password" id="user-password" name="user-password" class="input-field"
+                    v-model="userPassword"
+                    :class="{ 'red-border-bottom': userPasswordEmptyError || userPasswordValidationError }">
+                <p class="error" v-if="userPasswordValidationError"><i class="fa-solid fa-circle-exclamation"></i>
+                    Password length should be 8 char, 1 special char, 1 number, 1 uppercase, and 1 lowercase</p>
+                <p class="error" v-if="userPasswordEmptyError"><i class="fa-solid fa-circle-exclamation"></i> Enter your
+                    password</p>
+            </div>
+            <!-- User Role  -->
+            <div class="field">
+                <label for="user-role" class="label-field"
+                    :class="{ 'red-font-color': userRoleEmptyError }">ROLE:</label>
+                <select id="user-role" v-model="userRole">
+                    <option value="" disabled>Select role</option>
+                    <option value="Web Developer">Web Developer</option>
+                    <option value="Software Engg">Software Engg</option>
+                    <option value="Tester">Tester</option>
+                </select>
+                <p class="error" v-if="userRoleEmptyError"><i class="fa-solid fa-circle-exclamation"></i> Select your
+                    role</p>
+            </div>
+            <!-- User Skills  -->
+            <div class="field">
+                <label for="skills" class="label-field"
+                    :class="{ 'red-font-color': userSkillEmptyError }">SKILLS:</label>
+                <input type="text" v-model="skillInput" @keyup.enter="addSkill" class="input-field"
+                    :class="{ 'red-border-bottom': userSkillEmptyError }">
+                <div id="skill-list-div">
+                    <span v-for="(skill, index) in skillsList" class="skill-box" :id="index" :key="index">
+                        {{ skill }}
+                        <button class="skill-delete-button" :key="index" :id="index"
+                            @click="skillDeleteHandler(index)"><i class="fa-solid fa-xmark"></i></button>
+                    </span>
+                </div>
+                <p class="error" v-if="userSkillEmptyError"><i class="fa-solid fa-circle-exclamation"></i> Add your
+                    skill/skills</p>
+            </div>
+            <!-- Terms And Conditions checkbox  -->
+            <input type="checkbox" name="terms-and-conditions" id="terms-and-conditions" v-model="termsAndConditions">
+            <label for="terms-and-conditions" id="terms-and-conditions-label">ACCEPT TERMS AND CONDITIONS</label>
+            <p class="error" v-if="termsAndConditionsUncheckedError"><i class="fa-solid fa-circle-exclamation"></i>
+                Check the terms and conditions field</p>
+            <!-- "Create an Account" button  -->
+            <button @click="createAccount" id="create-account-btn">Create an Account</button>
 
+        </div>
+        <div v-if="formValidated">
+            <p>Email:{{ userEmail }}</p>
+            <p>Password: {{ userPassword }}</p>
+            <p>Role: {{ userRole }}</p>
+            <p>Skills: {{ skillsList }}</p>
+            <p>Terms and Conditions: {{ termsAndConditions }}</p>
+        </div>
     </div>
-    <div v-if="formValidated">
-        <p>Email:{{userEmail}}</p>
-        <p>Password: {{userPassword}}</p>
-        <p>Role: {{userRole}}</p>
-        <p>Skills: {{skillsList}}</p>
-        <p>Terms and Conditions: {{termsAndConditions}}</p>
-    </div>
-</div>
 </template>
 
 <script>
@@ -118,7 +133,7 @@ export default {
         // funtion when enter or comma key is pressed in skills input to add skill
         addSkill() {
             if (this.skillInput != "") {
-                if(this.skillsList.length == 0){
+                if (this.skillsList.length == 0) {
                     this.userSkillEmptyError = false;
                 }
                 this.skillsList.push(this.skillInput);
@@ -181,25 +196,18 @@ export default {
     border: none;
     font-size: 1em;
     color: gray;
-    margin-top: 15px
+    margin-top: 15px;
+    background-color: rgb(228, 228, 228);
+    padding: 5px 2px;
 }
 
 #user-role:focus {
     border: none;
-    outline: none
-}
-
-#user-role {
-    padding: 5px 2px;
+    outline: none;
 }
 
 #user-role option {
-    background-color: rgb(226, 226, 226);
-    border: none;
-}
-
-#user-role:hover {
-    background-color: rgb(233, 232, 232);
+    background-color: rgb(236, 236, 236);
 }
 
 #terms-and-conditions-label {
